@@ -3,10 +3,12 @@
 #include "math.h"
 #include <time.h>
 
-#define RAND_MAX 65535
-
 int PGCD(int A, int B)
 {
+	if (A == 0)
+		return B;
+	else if (B == 0)
+		return A;
 	while (A != B){
 		if (A > B)
 			A = A - B;
@@ -16,20 +18,9 @@ int PGCD(int A, int B)
 	return A;
 }
 
-int RandA()
+int RandX(int min, int max)
 {
-	unsigned short int A = rand();
-	if (A == 0)
-		A = 1;
-	return A;
-}
-
-int RandB()
-{
-	unsigned short int B = rand();
-	if (B == 0)
-		B = 1;
-	return B;
+	return rand()%(max-min) + min;
 }
 
 int main (int argc, char * argv []){
@@ -38,8 +29,8 @@ int main (int argc, char * argv []){
 
 	printf("(II) Starting PGCD program\n");
 	for (int i=0; i<2000; ++i){
-		a=RandA();
-		b=RandB();
+		a=RandX(0, 65535);
+		b=RandX(0, 65535);
 		printf("%d :: Results for a= %d and b= %d : \t \n", i, a, b);
 		printf("%d\n\n", PGCD(a, b));
 	}
