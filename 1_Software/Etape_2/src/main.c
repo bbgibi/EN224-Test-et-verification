@@ -25,7 +25,7 @@ int RandX(int min, int max)
 
 int main (int argc, char * argv []){
 	unsigned short a,b;
-	srand(time(0));
+	//srand(time(0));
 
 	printf("(II) Starting PGCD program\n");
 	for (int i=0; i<2000; ++i){
