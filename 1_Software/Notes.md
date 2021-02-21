@@ -17,7 +17,7 @@ RAS
 
 - [X] Definition de Write : permet d'ecrire dans un fichier des valeurs random
 - [X] Calcul du PGCD dans Excel
-- [X] Definition de Read : permet de reprendre les valeurs compute dans excel puis comparer
+- [X] Definition de ReadMi : permet de reprendre les valeurs compute dans excel puis comparer
 
 ## Etape 4
 

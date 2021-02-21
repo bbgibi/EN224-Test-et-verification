@@ -21,6 +21,10 @@ int PGCD(int A, int B)
 
 int PGCD_2(int A, int B)
 {
+	if (A == 0)
+		return B;
+	else if (B == 0)
+		return A;
     int n1 = A, n2 = B, n_temp;
     while (n2 != 0){
         n_temp = n1 % n2;

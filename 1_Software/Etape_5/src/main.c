@@ -20,7 +20,7 @@ int PGCD(int A, int B)
 			B = B - result;
 	}
 
-	assert(result > 0 && result <= 65535);
+	assert(result >= 0 && result <= 65535);
 	assert(result <= A && result <= B);
 	assert((A % result == 0) && (B % result == 0));
 

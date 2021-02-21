@@ -99,11 +99,7 @@ begin
                     pr_state <= Store;
                 else
                 -- Gestion des calculs
-                    if (n1 > 16*n2) then
-                        n1 <= n1 - 16*n2;
-                    elsif (n2 > 16*n1) then
-                        n2 <= n2 - 16*n1;
-                    elsif (n1 > n2) then
+                    if (n1 > n2) then
                         n1 <= n1 - n2;
                     else
                         n2 <= n2 - n1;

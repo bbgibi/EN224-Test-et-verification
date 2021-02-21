@@ -17,7 +17,7 @@ int PGCD(int A, int B)
 			B = B - result;
 	}
 
-	assert(result > 0 && result <= 65535);
+	assert(result >= 0 && result <= 65535);
 	assert(result <= A && result <= B);
 	assert((A % result == 0) && (B % result == 0));
 
@@ -29,6 +29,11 @@ int PGCD_2(int A, int B)
     assert(B >= 0 && B <= 65535);
 	assert(A >= 0 && A <= 65535);
 
+	if (A == 0)
+		return B;
+	else if (B == 0)
+		return A;
+		
     int n1 = A, n2 = B, n_temp;
     while (n2 != 0){
         n_temp = n1 % n2;

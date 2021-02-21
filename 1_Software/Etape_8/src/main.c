@@ -5,6 +5,11 @@
 
 #include "pgcd.h"
 
+int RandX(int min, int max)
+{
+	return rand()%(max-min) + min;
+}
+
 int main (int argc, char * argv []){
 	FILE *fA, *fB, *fC;
 	int a, b, c;

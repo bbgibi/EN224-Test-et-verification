@@ -50,7 +50,6 @@ architecture Behavioral of pgcd is
     signal pr_state , nx_state : State := Wait0;
     signal result : integer;
     signal n1, n2 : integer;
-    signal count_clk : integer;
 begin
 
     state_update : process ( clk , reset ) --On utilise qu'un seul process
@@ -61,31 +60,21 @@ begin
             pr_state <= Wait0;
         elsif rising_edge(clk) then
             case pr_state is
-                when Wait0 => 
-                    -- pragma translate_off
-                    count_clk <= 0;
-                    -- pragma translate_on
-                    
-                    -- Gestion des sorties
-                        odata_en <= '0';
-                    if (idata_en = '1') then
-                    -- Pre-assert
-                        assert (unsigned(idata_a) <= to_unsigned(65535, idata_a'length));
-                        assert (unsigned(idata_b) <= to_unsigned(65535, idata_b'length));
-                    -- Calcul du prochain etat
-                        pr_state <= Compute ;
-                    -- Gestion des calculs
-                        n1 <= to_integer(unsigned(idata_a));
-                        n2 <= to_integer(unsigned(idata_b));
-                    
-                    else
-                        pr_state <= Wait0 ;
-                    end if;
-                    
+            when Wait0 => 
+                -- Gestion des sorties
+                    odata_en <= '0';
+                if (idata_en = '1') then
+                -- Calcul du prochain etat
+                    pr_state <= Compute ;
+                -- Gestion des calculs
+                    n1 <= to_integer(unsigned(idata_a));
+                    n2 <= to_integer(unsigned(idata_b));
+                
+                else
+                    pr_state <= Wait0 ;
+                end if;
+                
             when Compute => 
-                -- pragma translate_off
-                    count_clk <= count_clk + 1;
-                    -- pragma translate_on
                 -- Gestion des sorties
                     odata_en <= '0';
                 -- Calcul du prochain etat
@@ -99,11 +88,7 @@ begin
                     pr_state <= Store;
                 else
                 -- Gestion des calculs
-                    if (n1 > 16*n2) then
-                        n1 <= n1 - 16*n2;
-                    elsif (n2 > 16*n1) then
-                        n2 <= n2 - 16*n1;
-                    elsif (n1 > n2) then
+                    if (n1 > n2) then
                         n1 <= n1 - n2;
                     else
                         n2 <= n2 - n1;
@@ -113,11 +98,6 @@ begin
                 end if;
                 
             when Store =>
-                REPORT "compteur clock : " & integer'image(count_clk);
-                -- Post-assert
-                assert (n1 >= 0);
-                assert (n1 <= 65535);
-                assert (n1 <= n2);
                 -- Calcul du prochain etat
                 pr_state <= Wait0;
                 -- Gestion des sorties
